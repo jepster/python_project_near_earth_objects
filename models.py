@@ -34,13 +34,14 @@ class NearEarthObject:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation, iau_name='', diameter=float('nan'), hazardous=None):
+    def __init__(self, designation, iau_name='', diameter=float('nan'), hazardous=None, close_approach_collection=None):
         """Create a new `NearEarthObject`.
 
-        :param designation: Its primary designation (required, unique).
-        :param iau_name: The IAU name
-        :param diameter: The diameter in kilometers
-        :param hazardous: Marks the entity as hazardous or not
+        :param string designation: Its primary designation (required, unique).
+        :param string iau_name: [optional] The IAU name
+        :param float diameter: [optional] The diameter in kilometers
+        :param None|bool hazardous: [optional] Marks the entity as hazardous or not
+        :param list close_approach_collection: [optional] A collection of the close approaches.
         """
         # [DONE] TODO: Assign information from the arguments passed to the constructor
         # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
@@ -52,7 +53,7 @@ class NearEarthObject:
         self.diameter = diameter
         self.hazardous = hazardous
         # Create an empty initial collection of linked approaches.
-        self.approaches = []
+        self.close_approach_collection = close_approach_collection
 
     @property
     def fullname(self):
@@ -62,7 +63,7 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
+        # [DONE] TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
 
@@ -70,7 +71,8 @@ class NearEarthObject:
             "designation": self.designation,
             "iau_name": self.iau_name,
             "diameter": self.diameter,
-            "hazardous": self.hazardous
+            "hazardous": self.hazardous,
+            "close_approach_collection": self.close_approach_collection
         }
 
         return f"NearEarthObject({info})"
@@ -94,24 +96,31 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
+    # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, **info):
+    def __init__(self, time, distance, velocity, neo):
         """Create a new `CloseApproach`.
 
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param string time: The date and time (in UTC) of closest approach. NASA's format, at least in the `cd`
+        field of close approach data, uses the English locale's month names. For example, December 31st, 2020 at noon
+        is: 2020-Dec-31 12:00
+        :param float distance: The nominal approach distance in astronomical units.
+        :param float velocity: The relative approach velocity in kilometers per second.
+        :param NearEarthObject neo: Reference to its `NearEarthObject` - initially, this information
+        (the NEO's primary designation) is saved in a private attribute, but the referenced NEO is
+        eventually replaced in the `NEODatabase` constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor
+        # [DONE] TODO: Assign information from the arguments passed to the constructor
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._designation = ''
-        self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = 0.0
-        self.velocity = 0.0
+        self._neo_primary_designation = neo.designation
+        self.time = cd_to_datetime(time)  # [DONE] TODO: Use the cd_to_datetime function for this attribute.
+        self.distance = float(distance)
+        self.velocity = float(velocity)
 
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = None
+        self.neo = neo
 
     @property
     def time_str(self):
@@ -126,17 +135,17 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
+        # [DONE] TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
-        return ''
+        # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
+        return f"Approach time of {self._neo_primary_designation} was at {datetime_to_str(self.time)}"
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
+        # [DONE] TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"A CloseApproach ..."
+        return f"A CloseApproach time={self.time_str} distance={self.distance} velocity={self.velocity} neo={self.neo}"
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""

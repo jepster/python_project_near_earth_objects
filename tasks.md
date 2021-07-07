@@ -1,4 +1,4 @@
-* Task 0: Inspect data. (data/neos.csv and data/cad.json)
+* [DONE] Task 0: Inspect data. (data/neos.csv and data/cad.json)
 * Task 1: Build models. (models.py)
 Write __init__ and __str__ methods for NearEarthObject and CloseApproach
 * Task 2a: Extract data. (extract.py)

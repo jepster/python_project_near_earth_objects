@@ -32,27 +32,25 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
+    # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, info):
+    def __init__(self, designation, iau_name='', diameter=float('nan'), hazardous=None):
         """Create a new `NearEarthObject`.
 
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param designation: Its primary designation (required, unique).
+        :param iau_name: The IAU name
+        :param diameter: The diameter in kilometers
+        :param hazardous: Marks the entity as hazardous or not
         """
         # [DONE] TODO: Assign information from the arguments passed to the constructor
         # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self.designation = info.get('designation')
-        self.name = info.get('name')
-        if info.get('diameter') is None:
-            self.diameter = float('nan')
-        else:
-            self.diameter = info.get('diameter')
-
-        self.hazardous = False
-
+        self.designation = designation
+        self.iau_name = iau_name
+        self.diameter = diameter
+        self.hazardous = hazardous
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
@@ -60,7 +58,7 @@ class NearEarthObject:
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
-        return self.designation + ' ' + self.name
+        return self.designation + ' ' + self.iau_name
 
     def __str__(self):
         """Return `str(self)`."""
@@ -70,7 +68,7 @@ class NearEarthObject:
 
         info = {
             "designation": self.designation,
-            "name": self.name,
+            "iau_name": self.iau_name,
             "diameter": self.diameter,
             "hazardous": self.hazardous
         }
@@ -79,7 +77,7 @@ class NearEarthObject:
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        return (f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, "
+        return (f"NearEarthObject(designation={self.designation!r}, name={self.iau_name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
 
 
@@ -92,7 +90,7 @@ class CloseApproach:
     in kilometers per second.
 
     A `CloseApproach` also maintains a reference to its `NearEarthObject` -
-    initally, this information (the NEO's primary designation) is saved in a
+    initially, this information (the NEO's primary designation) is saved in a
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """

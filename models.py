@@ -34,7 +34,8 @@ class NearEarthObject:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation, iau_name='', diameter=float('nan'), hazardous=None, close_approach_collection=None):
+    def __init__(self, designation: str, iau_name='', diameter=float('nan'), hazardous=None,
+                 close_approach_collection=None):
         """Create a new `NearEarthObject`.
 
         :param string designation: Its primary designation (required, unique).
@@ -56,12 +57,12 @@ class NearEarthObject:
         self.close_approach_collection = close_approach_collection
 
     @property
-    def fullname(self):
+    def fullname(self) -> str:
         """Return a representation of the full name of this NEO."""
         # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
         return self.designation + ' ' + self.iau_name
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return `str(self)`."""
         # [DONE] TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
@@ -77,7 +78,7 @@ class NearEarthObject:
 
         return f"NearEarthObject({info})"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"NearEarthObject(designation={self.designation!r}, name={self.iau_name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")

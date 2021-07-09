@@ -24,7 +24,7 @@ def load_neos(neo_csv_path) -> list:
     :param neo_csv_path: A path to a CSV file containing data about near-Earth objects.
     :return: A collection of `NearEarthObject`s.
     """
-    # TODO: Load NEO data from the given CSV file.
+    # [DONE] TODO: Load NEO data from the given CSV file.
 
     near_earth_object_collection = []
 
@@ -45,17 +45,17 @@ def load_neos(neo_csv_path) -> list:
                 except ValueError:
                     return diameter_default
 
-            near_earth_object = NearEarthObject(row[0], row[2], get_diameter(row[15]), is_hazardous(row[7]))
+            near_earth_object = NearEarthObject(row[3], row[4], get_diameter(row[15]), is_hazardous(row[7]))
             near_earth_object_collection.append(near_earth_object)
 
     return near_earth_object_collection
 
 
-def load_approaches(cad_json_path):
+def load_approaches(cad_json_path: str):
     """Read close approach data from a JSON file.
 
-    :param neo_csv_path: A path to a JSON file containing data about close approaches.
-    :return: A collection of `CloseApproach`es.
+    :param str cad_json_path: A path to a JSON file containing data about close approaches.
+    :return list: A collection of `CloseApproach`es.
     """
     # TODO: Load close approach data from the given JSON file.
 
@@ -64,8 +64,16 @@ def load_approaches(cad_json_path):
     with open(cad_json_path) as infile:
         json_content = json.load(infile)
 
-        for item in json_content:
-            for i in item:
-                blar = 1
+        for item in json_content['data']:
+            close_approach = CloseApproach(item['03'], _string_to_float(item['04']), _string_to_float(item['07']))
+            close_approach_collection.append(close_approach)
 
     return ()
+
+
+def _string_to_float(value: str) -> float:
+    diameter_default = float('nan')
+    try:
+        return float(value)
+    except ValueError:
+        return diameter_default

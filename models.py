@@ -34,7 +34,7 @@ class NearEarthObject:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation: str, iau_name='', diameter=float('nan'), hazardous=None,
+    def __init__(self, designation: str, iau_name='', diameter=None, hazardous=None,
                  close_approach_collection=None):
         """Create a new `NearEarthObject`.
 
@@ -50,7 +50,9 @@ class NearEarthObject:
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
         self.designation = designation
-        self.iau_name = iau_name
+        if iau_name == '':
+            iau_name = None
+        self.name = iau_name
         self.diameter = diameter
         self.hazardous = hazardous
         # Create an empty initial collection of linked approaches.
@@ -60,7 +62,7 @@ class NearEarthObject:
     def fullname(self) -> str:
         """Return a representation of the full name of this NEO."""
         # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
-        return self.designation + ' ' + self.iau_name
+        return self.designation + ' ' + self.name
 
     def __str__(self) -> str:
         """Return `str(self)`."""
@@ -70,7 +72,7 @@ class NearEarthObject:
 
         info = {
             "designation": self.designation,
-            "iau_name": self.iau_name,
+            "iau_name": self.name,
             "diameter": self.diameter,
             "hazardous": self.hazardous,
             "close_approach_collection": self.close_approach_collection
@@ -80,7 +82,7 @@ class NearEarthObject:
 
     def __repr__(self) -> str:
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        return (f"NearEarthObject(designation={self.designation!r}, name={self.iau_name!r}, "
+        return (f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
 
 
@@ -99,7 +101,7 @@ class CloseApproach:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, time, distance, velocity, neo):
+    def __init__(self, time: str, distance: float, velocity: float, neo=None):
         """Create a new `CloseApproach`.
 
         :param string time: The date and time (in UTC) of closest approach. NASA's format, at least in the `cd`

@@ -51,13 +51,13 @@ def load_neos(neo_csv_path) -> list:
     return near_earth_object_collection
 
 
-def load_approaches(cad_json_path: str):
+def load_approaches(cad_json_path) -> list:
     """Read close approach data from a JSON file.
 
     :param str cad_json_path: A path to a JSON file containing data about close approaches.
     :return list: A collection of `CloseApproach`es.
     """
-    # TODO: Load close approach data from the given JSON file.
+    # [DONE] TODO: Load close approach data from the given JSON file.
 
     close_approach_collection = []
 
@@ -65,10 +65,11 @@ def load_approaches(cad_json_path: str):
         json_content = json.load(infile)
 
         for item in json_content['data']:
-            close_approach = CloseApproach(item['03'], _string_to_float(item['04']), _string_to_float(item['07']))
+            near_earth_object = NearEarthObject(item[0])
+            close_approach = CloseApproach(item[3], _string_to_float(item[4]), _string_to_float(item[7]), near_earth_object)
             close_approach_collection.append(close_approach)
 
-    return ()
+    return close_approach_collection
 
 
 def _string_to_float(value: str) -> float:

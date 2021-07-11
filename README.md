@@ -752,7 +752,7 @@ class AttributeFilter:
         return self.op(self.get(approach), self.value)
 
     @classmethod
-    def get(cls, approach):
+    def get(self, approach):
         raise UnsupportedCriterionError
 ```
 
@@ -767,7 +767,7 @@ As an example, suppose that we wanted to build an `AttributeFilter` that filtere
 ```
 class DesignationFilter(AttributeFilter):
     @classmethod
-    def get(cls, approach):
+    def get(self, approach):
         return approach.neo.designation
 ```
 

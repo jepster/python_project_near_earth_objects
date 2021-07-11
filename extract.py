@@ -15,7 +15,8 @@ You'll edit this file in Task 2.
 import csv
 import json
 
-from models import NearEarthObject, CloseApproach
+from near_earth_object import NearEarthObject
+from close_approach import CloseApproach
 
 
 def load_neos(neo_csv_path) -> list:

@@ -66,11 +66,16 @@ class NearEarthObject:
         return self.designation + ' ' + self.name
 
     @property
-    def approaches(self) -> list:
+    def approaches(self):
+        if self.close_approach_collection is None:
+            return set()
         return self.close_approach_collection
 
     def link_close_approach(self, close_approach: CloseApproach):
-        self.close_approach_collection.append(close_approach)
+        if self.close_approach_collection is None:
+            self.close_approach_collection = [close_approach]
+        else:
+            self.close_approach_collection.append(close_approach)
 
     def __str__(self) -> str:
         """Return `str(self)`."""

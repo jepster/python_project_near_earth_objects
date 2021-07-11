@@ -1,3 +1,8 @@
+from typing import Iterable
+from close_approach import CloseApproach
+from near_earth_object import NearEarthObject
+
+
 """A database encapsulating collections of near-Earth objects and their close approaches.
 
 A `NEODatabase` holds an interconnected data set of NEOs and close approaches.
@@ -20,7 +25,7 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
-    def __init__(self, neos: list, approaches: list):
+    def __init__(self, neos: Iterable[NearEarthObject], approaches: Iterable[CloseApproach]):
         """Create a new `NEODatabase`.
 
         As a precondition, this constructor assumes that the collections of NEOs
@@ -35,8 +40,8 @@ class NEODatabase:
         a collection of that NEO's close approaches, and the `.neo` attribute of
         each close approach references the appropriate NEO.
 
-        :param neos: A collection of `NearEarthObject`s.
-        :param approaches: A collection of `CloseApproach`es.
+        :param collections.Iterable[models.Near] neos: A collection of `NearEarthObject`s.
+        :param collections.Iterable[models.CloseApproaches] approaches: A collection of `CloseApproach`es.
         """
         self._neos = neos
         self._approaches = approaches
@@ -44,6 +49,15 @@ class NEODatabase:
         # TODO: What additional auxiliary data structures will be useful?
 
         # TODO: Link together the NEOs and their close approaches.
+        self.link_close_approaches_to_neo()
+
+    def link_close_approaches_to_neo(self):
+        updated_neos = []
+        for neo in self._neos:
+            for approach in self._approaches:
+                if approach.neo.designation == neo.designation:
+                    neo.link_close_approach(approach)
+            updated_neos.append(neo)
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.

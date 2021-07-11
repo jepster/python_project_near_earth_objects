@@ -58,6 +58,9 @@ class CloseApproach:
         # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
         return f"Approach time of {self._neo_primary_designation} was at {datetime_to_str(self.time)}"
 
+    def get_neo_primary_designation(self) -> str:
+        return self._neo_primary_designation
+
     def __str__(self):
         """Return `str(self)`."""
         # [DONE] TODO: Use this object's attributes to return a human-readable string representation.

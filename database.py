@@ -48,7 +48,7 @@ class NEODatabase:
 
         # TODO: What additional auxiliary data structures will be useful?
 
-        # TODO: Link together the NEOs and their close approaches.
+        # [DONE] TODO: Link together the NEOs and their close approaches.
         self.link_close_approaches_to_neo()
 
     def link_close_approaches_to_neo(self):
@@ -72,7 +72,7 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
+        # [DONE] TODO: Fetch an NEO by its primary designation.
         neos_by_designation = {neo.designation: neo for neo in self._neos}
 
         return neos_by_designation[designation]

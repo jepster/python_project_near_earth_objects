@@ -73,9 +73,11 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # [DONE] TODO: Fetch an NEO by its primary designation.
-        neos_by_designation = {neo.designation: neo for neo in self._neos}
-
-        return neos_by_designation[designation]
+        try:
+            neos_by_designation = {neo.designation: neo for neo in self._neos}
+            return neos_by_designation[designation]
+        except KeyError:
+            return None
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
@@ -91,23 +93,31 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
-        return None
+        # [DONE] TODO: Fetch an NEO by its name.
+        try:
+            neos_by_name = {neo.name: neo for neo in self._neos}
+            return neos_by_name[name]
+        except KeyError:
+            return None
+
 
     def query(self, filters=()):
-        """Query close approaches to generate those that match a collection of filters.
+        """To generate a query to a database.
 
-        This generates a stream of `CloseApproach` objects that match all of the
-        provided filters.
-
+        Query close approaches to generate those that match a collection
+        of filters.
+        This generates a stream of `CloseApproach` objects that match all
+        of the provided filters.
         If no arguments are provided, generate all known close approaches.
+        The `CloseApproach` objects are generated in internal order, which
+        isn't guaranteed to be sorted meaninfully, although is often
+        sorted by time.
 
-        The `CloseApproach` objects are generated in internal order, which isn't
-        guaranteed to be sorted meaninfully, although is often sorted by time.
-
-        :param filters: A collection of filters capturing user-specified criteria.
+        :param filters: A collection of filters capturing user-specified
+        criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
         for approach in self._approaches:
-            yield approach
+            flag = False in map(lambda f: f(approach), filters)
+            if not flag:
+                yield approach

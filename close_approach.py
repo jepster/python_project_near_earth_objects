@@ -33,7 +33,8 @@ class CloseApproach:
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
         self._neo_primary_designation = neo.designation
-        self.time = cd_to_datetime(time)  # [DONE] TODO: Use the cd_to_datetime function for this attribute.
+        self.time = str(time)
+        self.time = cd_to_datetime(self.time)  # [DONE] TODO: Use the cd_to_datetime function for this attribute.
         self.distance = float(distance)
         self.velocity = float(velocity)
 

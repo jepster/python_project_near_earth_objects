@@ -33,6 +33,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
     def __init__(self, designation: str, iau_name=None, diameter=float('nan'), hazardous=False,
@@ -54,12 +55,15 @@ class NearEarthObject:
         if iau_name == '':
             iau_name = None
         self.name = iau_name
-        try:
-            # if the type of value is not float
-            self.diameter = float(diameter)
-        except ValueError:
+
+        if diameter == float('nan'):
+            try:
+                # if the type of value is not float
+                self.diameter = float(diameter)
+            except ValueError:
+                print(f'The type of {diameter} is not float')
+        else:
             self.diameter = float('nan')
-            print(f'The type of {diameter} is not float')
 
         self.hazardous = hazardous
         # Create an empty initial collection of linked approaches.

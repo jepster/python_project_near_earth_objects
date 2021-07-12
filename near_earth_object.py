@@ -35,7 +35,7 @@ class NearEarthObject:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation: str, iau_name=None, diameter=float('nan'), hazardous=None,
+    def __init__(self, designation: str, iau_name=None, diameter=float('nan'), hazardous=False,
                  close_approach_collection=None):
         """Create a new `NearEarthObject`.
 

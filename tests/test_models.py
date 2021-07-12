@@ -15,7 +15,7 @@ class TestModels(unittest.TestCase):
     def test_edge_cases_by_initialization_of_NearEarthObject_model(self):
         near_earth_object = NearEarthObject('designation_value')
         self.assertEqual("NearEarthObject({'designation': 'designation_value', 'iau_name': None, 'diameter': nan, "
-                         "'hazardous': None, 'close_approach_collection': None})", near_earth_object.__str__())
+                         "'hazardous': False, 'close_approach_collection': None})", near_earth_object.__str__())
 
     def test_close_approach_object_init(self):
         near_earth_obj = NearEarthObject('designation_value')
@@ -23,5 +23,5 @@ class TestModels(unittest.TestCase):
         self.assertEqual('Approach time of designation_value was at 2020-12-31 12:00', close_approach_obj.time_str)
         self.assertEqual("A CloseApproach time=Approach time of designation_value was at 2020-12-31 12:00 distance=3.1 "
                          "velocity=55.55 neo=NearEarthObject({'designation': 'designation_value', 'iau_name': None, "
-                         "'diameter': nan, 'hazardous': None, 'close_approach_collection': None})",
+                         "'diameter': nan, 'hazardous': False, 'close_approach_collection': None})",
                          close_approach_obj.__str__())

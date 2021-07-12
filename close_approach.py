@@ -16,7 +16,7 @@ class CloseApproach:
     """
     # [DONE] TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, time: str, distance: float, velocity: float, neo=None):
+    def __init__(self, **info):
         """Create a new `CloseApproach`.
 
         :param string time: The date and time (in UTC) of closest approach. NASA's format, at least in the `cd`
@@ -32,14 +32,54 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        self._neo_primary_designation = neo.designation
-        self.time = str(time)
-        self.time = cd_to_datetime(self.time)  # [DONE] TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = float(distance)
-        self.velocity = float(velocity)
+        # parse the keyword parameters
+        for key, value in info.items():
+            # assign the designation parameter
+            if key.lower() == 'des':
+                # check the value of the parameter to avoid
+                # an inappropriate value
+                try:
+                    # if the type of value is not string
+                    self._designation = str(value)
+                except ValueError:
+                    # print the text message
+                    print(f'The type of {key} is not string')
 
-        # Create an attribute for the referenced NEO, originally None.
-        self.neo = neo
+            # assign the time parameter
+            elif key.lower() == 'cd':
+                # check the value of the parameter to avoid
+                # an inappropriate value
+                try:
+                    # if the type of value is not string
+                    self.time = str(value)
+                    self.time = cd_to_datetime(self.time)
+                except ValueError:
+                    # print the text message
+                    print(f'The type of {key} is not string')
+
+            # assign the distance parameter
+            elif key.lower() == 'dist':
+                # check the value of the parameter to avoid
+                # an inappropriate value
+                try:
+                    # if the type of value is not float
+                    self.distance = float(value)
+                except ValueError:
+                    # print the text message
+                    print(f'The type of {key} is not float')
+
+            # assign the velocity parameter
+            elif key.lower() == 'v_rel':
+                # check the value of the parameter to avoid
+                # an inappropriate value
+                try:
+                    # if the type of value is not float
+                    self.velocity = float(value)
+                except ValueError:
+                    # print the text message
+                    print(f'The type of {key} is not float')
+
+        self.neo = self._designation
 
     @property
     def time_str(self):
@@ -57,10 +97,18 @@ class CloseApproach:
         # [DONE] TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # [DONE] TODO: Use self.designation and self.name to build a fullname for this object.
-        return f"Approach time of {self._neo_primary_designation} was at {datetime_to_str(self.time)}"
+        return f"Approach time of {self._designation} was at {datetime_to_str(self.time)}"
 
     def get_neo_primary_designation(self) -> str:
-        return self._neo_primary_designation
+        return self._designation
+
+    @property
+    def designation(self):
+        """To access to the self._designation.
+
+        :return: self._designation
+        """
+        return self._designation
 
     def __str__(self):
         """Return `str(self)`."""

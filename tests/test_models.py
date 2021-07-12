@@ -7,9 +7,9 @@ from close_approach import CloseApproach
 class TestModels(unittest.TestCase):
 
     def test_object_initialized_by_NearEarthObject_model(self):
-        near_earth_object = NearEarthObject('designation_value', 'iau_name_value', 'diameter_value', True)
+        near_earth_object = NearEarthObject('designation_value', 'iau_name_value', float('nan'), True)
         self.assertEqual("NearEarthObject({'designation': 'designation_value', 'iau_name': 'iau_name_value', "
-                         "'diameter': 'diameter_value', 'hazardous': True, "
+                         "'diameter': nan, 'hazardous': True, "
                          "'close_approach_collection': None})", near_earth_object.__str__())
 
     def test_edge_cases_by_initialization_of_NearEarthObject_model(self):

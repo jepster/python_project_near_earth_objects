@@ -58,9 +58,9 @@ class NearEarthObject:
             # if the type of value is not float
             self.diameter = float(diameter)
         except ValueError:
-            # print the text message
+            self.diameter = float('nan')
             print(f'The type of {diameter} is not float')
-        # self.diameter = diameter
+
         self.hazardous = hazardous
         # Create an empty initial collection of linked approaches.
         self.close_approach_collection = close_approach_collection

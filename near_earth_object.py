@@ -1,5 +1,6 @@
 from close_approach import CloseApproach
 
+
 class NearEarthObject:
     """A near-Earth object (NEO).
 
@@ -93,7 +94,7 @@ class NearEarthObject:
         :param аpproach: a close approach to addition
         :return: just add information
         """
-        if type(аpproach) == CloseApproach:
+        if isinstance(аpproach, CloseApproach):
             self.approaches.append(аpproach)
 
     def serialize(self):

@@ -41,7 +41,6 @@ def load_approaches(cad_json_path) -> list:
     :param str cad_json_path: A path to a JSON file containing data about close approaches.
     :return list: A collection of `CloseApproach`es.
     """
-    # [DONE] TODO: Load close approach data from the given JSON file.
 
     json_list = []
 

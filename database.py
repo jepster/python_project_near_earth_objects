@@ -17,6 +17,7 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 You'll edit this file in Tasks 2 and 3.
 """
 
+
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
 
@@ -25,7 +26,11 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
-    def __init__(self, neos: Iterable[NearEarthObject], approaches: Iterable[CloseApproach]):
+
+    def __init__(
+            self,
+            neos: Iterable[NearEarthObject],
+            approaches: Iterable[CloseApproach]):
         """Create a new `NEODatabase`.
 
         As a precondition, this constructor assumes that the collections of NEOs
@@ -49,15 +54,12 @@ class NEODatabase:
         self._designation_neo_dict = {}
         self._name_neo_dict = {}
 
-        # TODO: What additional auxiliary data structures will be useful?
-
         for neo in self._neos:
             self._designation_neo_dict[neo.designation] = neo
 
             if neo.name:
                 self._name_neo_dict[neo.name] = neo
 
-        # [DONE] TODO: Link together the NEOs and their close approaches.
         for approach in self._approaches:
             neo = self._designation_neo_dict[approach.designation]
             approach.neo = neo
@@ -79,7 +81,6 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # [DONE] TODO: Fetch an NEO by its primary designation.
         if designation in self._designation_neo_dict:
             return self._designation_neo_dict[designation]
         else:
@@ -99,13 +100,11 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # [DONE] TODO: Fetch an NEO by its name.
         try:
             neos_by_name = {neo.name: neo for neo in self._neos}
             return neos_by_name[name]
         except KeyError:
             return None
-
 
     def query(self, filters=()):
         """To generate a query to a database.

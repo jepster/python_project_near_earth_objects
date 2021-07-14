@@ -4,10 +4,10 @@ from helpers import cd_to_datetime, datetime_to_str
 class CloseApproach:
     """A close approach to Earth by an NEO.
 
-    A `CloseApproach` encapsulates information about the NEO's close approach to
-    Earth, such as the date and time (in UTC) of closest approach, the nominal
-    approach distance in astronomical units, and the relative approach velocity
-    in kilometers per second.
+    A `CloseApproach` encapsulates information about the NEO's close approach
+    to Earth, such as the date and time (in UTC) of closest approach, the
+    nominal approach distance in astronomical units, and the relative approach
+    velocity in kilometers per second.
 
     A `CloseApproach` also maintains a reference to its `NearEarthObject` -
     initially, this information (the NEO's primary designation) is saved in a
